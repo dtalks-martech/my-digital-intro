@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -27,9 +27,12 @@
   --slate:#2C3E50;
   --cream:#E8DFC9;
 
-  --display:'Instrument Serif', 'Times New Roman', serif;
-  --sans:'Inter', sans-serif;
-  --mono:'IBM Plex Mono', monospace;
+  --display:'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono:'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  --maxw: 1280px;
+  --pad-x: 48px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -39,7 +42,7 @@ body{
   font-family:var(--sans);
   font-size:16px;
   font-weight:400;
-  line-height:1.55;
+  line-height:1.6;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
@@ -50,37 +53,49 @@ body::before{
   position:fixed;inset:0;
   pointer-events:none;
   z-index:9999;
-  opacity:.18;
+  opacity:.1;
   mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.15 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
+.container{
+  max-width:var(--maxw);
+  margin:0 auto;
+  width:100%;
+}
+
+/* ============ NAV ============ */
 .nav{
   position:fixed;top:0;left:0;right:0;
   z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 40px;
   backdrop-filter:blur(14px);
-  background:rgba(250,250,247,.82);
+  background:rgba(250,250,247,.9);
   border-bottom:1px solid var(--rule);
+}
+.nav-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px var(--pad-x);
 }
 .nav .mark{
   font-family:var(--display);
-  font-weight:400;
-  font-size:24px;
+  font-weight:700;
+  font-size:18px;
   letter-spacing:-.01em;
   color:var(--ink);
+  text-transform:uppercase;
 }
-.nav .mark span{color:var(--primary);font-style:italic}
+.nav .mark span{color:var(--primary)}
 .nav ul{
-  display:flex;gap:32px;list-style:none;
+  display:flex;gap:36px;list-style:none;
   font-family:var(--sans);
   font-size:13px;
   font-weight:500;
-  letter-spacing:.01em;
+  letter-spacing:.02em;
 }
 .nav ul a{
-  color:var(--ink);text-decoration:none;
+  color:var(--ink-2);text-decoration:none;
   position:relative;padding:6px 0;
   transition:color .25s;
 }
@@ -93,10 +108,10 @@ body::before{
 .nav ul a:hover::after{width:100%}
 .nav .cta{
   background:var(--ink);color:var(--bg);
-  padding:11px 20px;border-radius:2px;
+  padding:11px 22px;border-radius:3px;
   font-family:var(--sans);
   font-size:13px;
-  font-weight:500;
+  font-weight:600;
   letter-spacing:.02em;
   text-decoration:none;
   transition:background .25s;
@@ -104,13 +119,14 @@ body::before{
 .nav .cta:hover{background:var(--primary)}
 @media (max-width:780px){
   .nav ul{display:none}
-  .nav{padding:14px 20px}
+  .nav-inner{padding:14px 20px}
 }
 
+/* ============ HERO ============ */
 .hero{
   min-height:100vh;
   position:relative;
-  padding:140px 40px 60px;
+  padding:120px var(--pad-x) 0;
   display:flex;flex-direction:column;justify-content:center;
   overflow:hidden;
 }
@@ -120,24 +136,32 @@ body::before{
     radial-gradient(ellipse at 80% 15%, rgba(15,61,62,.07), transparent 55%),
     radial-gradient(ellipse at 5% 90%, rgba(200,169,113,.08), transparent 55%);
 }
-.hero-meta{
+.hero-inner{
   position:relative;z-index:2;
+  max-width:var(--maxw);
+  width:100%;
+  margin:0 auto;
+}
+.hero-meta{
   display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:11px;
-  letter-spacing:.05em;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
   color:var(--muted);
-  margin-bottom:80px;
+  margin-bottom:72px;
   border-top:1px solid var(--rule);
   border-bottom:1px solid var(--rule);
-  padding:12px 0;
+  padding:14px 0;
 }
 .hero-meta .blinker{
   width:7px;height:7px;border-radius:50%;
   background:var(--primary);
-  display:inline-block;margin-right:8px;
+  display:inline-block;margin-right:10px;
   box-shadow:0 0 10px rgba(15,61,62,.5);
   animation:blink 2s infinite;
+  vertical-align:middle;
 }
 @keyframes blink{
   0%,100%{opacity:1}
@@ -145,242 +169,259 @@ body::before{
 }
 
 .hero h1{
-  position:relative;z-index:2;
   font-family:var(--display);
-  font-weight:400;
-  font-size:clamp(56px,12vw,200px);
-  line-height:.92;
-  letter-spacing:-.025em;
+  font-weight:700;
+  font-size:clamp(48px,8vw,116px);
+  line-height:1.02;
+  letter-spacing:-.035em;
   color:var(--ink);
+  max-width:1100px;
 }
-.hero h1 .a{display:block}
+.hero h1 .a{display:block;color:var(--ink)}
 .hero h1 .b{
   display:block;
-  font-style:italic;
   color:var(--primary);
+  font-weight:600;
 }
-.hero h1 .b .amp{color:var(--accent)}
+.hero h1 .b .amp{color:var(--accent);font-weight:400}
 
 .hero-sub{
-  position:relative;z-index:2;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  margin-top:60px;
-  align-items:end;
+  grid-template-columns:1fr 1.4fr;
+  gap:80px;
+  margin-top:56px;
+  align-items:start;
 }
 .hero-tag{
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:12px;
-  letter-spacing:.04em;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
   color:var(--muted);
-  line-height:1.7;
+  line-height:1.9;
 }
 .hero-tag .row{display:block}
-.hero-tag .row + .row{color:var(--ink);font-weight:500}
+.hero-tag .row.name{color:var(--ink);font-weight:600;margin-bottom:4px}
 .hero-bio{
-  font-family:var(--display);
+  font-family:var(--sans);
   font-weight:400;
-  font-size:clamp(22px,2.4vw,30px);
-  line-height:1.4;
+  font-size:clamp(16px,1.3vw,19px);
+  line-height:1.7;
   letter-spacing:-.005em;
-  max-width:680px;
-  justify-self:end;
   color:var(--ink-2);
+  max-width:640px;
 }
-.hero-bio em{
-  font-style:italic;
+.hero-bio strong{
+  font-weight:600;
   color:var(--primary);
 }
-@media (max-width:780px){
-  .hero{padding:120px 20px 40px}
-  .hero-sub{grid-template-columns:1fr;gap:24px}
-  .hero-bio{justify-self:start}
-  .hero-meta{font-size:10px;flex-wrap:wrap;gap:8px}
+@media (max-width:900px){
+  .hero{padding:110px 20px 0}
+  .hero-sub{grid-template-columns:1fr;gap:28px}
+  .hero-meta{font-size:10px;flex-wrap:wrap;gap:10px}
 }
 
+/* ============ MARQUEE ============ */
 .marquee{
-  position:relative;z-index:2;
   margin-top:80px;
-  border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);
   padding:22px 0;
   overflow:hidden;
   background:var(--ink);
   color:var(--bg);
-  margin-left:-40px;margin-right:-40px;
+  width:100vw;
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
 }
 .marquee-track{
   display:flex;gap:60px;
-  animation:scroll 32s linear infinite;
+  animation:scroll 36s linear infinite;
   white-space:nowrap;
-  font-family:var(--display);
-  font-style:italic;
-  font-weight:400;
-  font-size:32px;
-  letter-spacing:-.005em;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:14px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
 }
 .marquee-track span{display:inline-flex;align-items:center;gap:60px}
 .marquee-track .dot{
-  width:8px;height:8px;border-radius:50%;
+  width:5px;height:5px;border-radius:50%;
   background:var(--accent);display:inline-block;
 }
 @keyframes scroll{
   from{transform:translateX(0)}
   to{transform:translateX(-50%)}
 }
-@media (max-width:780px){
-  .marquee{margin-left:-20px;margin-right:-20px}
-  .marquee-track{font-size:22px;gap:40px}
-}
 
+/* ============ SECTIONS ============ */
 .section{
-  padding:120px 40px;
+  padding:120px var(--pad-x);
   position:relative;
 }
+.section-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  width:100%;
+}
 .section-label{
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:11px;
-  letter-spacing:.1em;
+  font-weight:600;
+  letter-spacing:.18em;
   color:var(--muted);
-  margin-bottom:20px;
-  display:flex;align-items:center;gap:14px;
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:16px;
   text-transform:uppercase;
 }
 .section-label::before{
-  content:"";width:32px;height:1px;background:var(--primary);
+  content:"";width:36px;height:1px;background:var(--primary);
 }
 .section-title{
   font-family:var(--display);
-  font-weight:400;
-  font-size:clamp(44px,6.5vw,92px);
-  line-height:1;
-  letter-spacing:-.02em;
-  margin-bottom:60px;
+  font-weight:700;
+  font-size:clamp(36px,4.5vw,64px);
+  line-height:1.1;
+  letter-spacing:-.03em;
+  margin-bottom:72px;
   color:var(--ink);
+  max-width:900px;
 }
-.section-title em{
-  font-style:italic;
+.section-title span.accent{
   color:var(--primary);
+  font-weight:600;
 }
 @media (max-width:780px){
   .section{padding:80px 20px}
+  .section-title{margin-bottom:48px}
 }
 
+/* ============ STATS ============ */
 .stats{
   background:var(--ink);
   color:var(--bg);
-  padding:90px 40px;
+  padding:72px var(--pad-x);
 }
 .stats-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:0;
-  max-width:1400px;
+  max-width:var(--maxw);
   margin:0 auto;
 }
 .stat{
-  padding:24px 32px;
+  padding:12px 32px;
   border-right:1px solid rgba(250,250,247,.12);
 }
-.stat:last-child{border-right:none}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:none;padding-right:0}
 .stat .num{
   font-family:var(--display);
-  font-weight:400;
-  font-size:clamp(56px,7vw,96px);
-  line-height:.9;
-  letter-spacing:-.025em;
+  font-weight:700;
+  font-size:clamp(44px,5.2vw,72px);
+  line-height:1;
+  letter-spacing:-.035em;
   color:var(--accent);
 }
 .stat:nth-child(2) .num{color:var(--bg)}
-.stat:nth-child(3) .num{color:var(--accent)}
 .stat:nth-child(4) .num{color:var(--bg)}
 .stat .lbl{
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:.06em;
-  margin-top:16px;
-  opacity:.65;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:.04em;
+  margin-top:18px;
+  opacity:.75;
   line-height:1.5;
 }
 @media (max-width:900px){
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .stat{border-right:none;border-bottom:1px solid rgba(250,250,247,.12)}
-  .stat:nth-child(odd){border-right:1px solid rgba(250,250,247,.12)}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:24px 0}
+  .stat{padding:12px 20px;border-right:none}
+  .stat:nth-child(odd){border-right:1px solid rgba(250,250,247,.12);padding-left:0}
+  .stat:nth-child(even){padding-right:0}
 }
 
+/* ============ EXPERTISE GRID ============ */
 .expertise-grid{
   display:grid;
   grid-template-columns:repeat(12,1fr);
-  gap:14px;
+  gap:16px;
 }
 .exp-card{
-  border-radius:6px;
-  padding:32px 28px;
+  border-radius:4px;
+  padding:36px 32px;
   position:relative;
   overflow:hidden;
   transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
   cursor:default;
-  min-height:260px;
+  min-height:280px;
   display:flex;flex-direction:column;justify-content:space-between;
+  gap:24px;
 }
 .exp-card:hover{
   transform:translateY(-4px);
   box-shadow:0 24px 48px -16px rgba(14,17,22,.18);
 }
 .exp-card .num{
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:11px;
-  letter-spacing:.08em;
-  opacity:.6;
+  font-weight:600;
+  letter-spacing:.14em;
+  opacity:.65;
+  margin-bottom:12px;
 }
 .exp-card h3{
   font-family:var(--display);
-  font-weight:400;
-  font-size:38px;
-  line-height:1;
+  font-weight:700;
+  font-size:24px;
+  line-height:1.25;
   letter-spacing:-.015em;
 }
-.exp-card h3 em{font-style:italic}
+.exp-card h3 span{font-weight:500;opacity:.9}
 .exp-card p{
+  font-family:var(--sans);
   font-size:14px;
-  line-height:1.55;
-  opacity:.78;
+  font-weight:400;
+  line-height:1.65;
+  opacity:.85;
+  margin-bottom:14px;
 }
 .exp-card .tag{
   display:inline-block;
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.06em;
-  padding:6px 10px;
-  border-radius:2px;
-  margin-top:10px;
+  font-family:var(--sans);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:7px 11px;
+  border-radius:3px;
 }
 
 .c1{grid-column:span 5;background:var(--primary);color:var(--bg)}
-.c1 h3 em{color:var(--accent)}
+.c1 h3 span{color:var(--accent)}
 .c1 .tag{background:rgba(250,250,247,.12)}
 .c2{grid-column:span 4;background:var(--accent);color:var(--ink)}
-.c2 h3 em{color:var(--primary)}
+.c2 h3 span{color:var(--primary)}
 .c2 .tag{background:rgba(14,17,22,.1)}
 .c3{grid-column:span 3;background:var(--ink);color:var(--bg)}
-.c3 h3 em{color:var(--accent)}
+.c3 h3 span{color:var(--accent)}
 .c3 .tag{background:rgba(250,250,247,.12);color:var(--accent)}
 .c4{grid-column:span 4;background:var(--slate);color:var(--bg)}
-.c4 h3 em{color:var(--accent)}
+.c4 h3 span{color:var(--accent)}
 .c4 .tag{background:rgba(250,250,247,.14)}
 .c5{grid-column:span 5;background:var(--cream);color:var(--ink)}
-.c5 h3 em{color:var(--primary)}
+.c5 h3 span{color:var(--primary)}
 .c5 .tag{background:rgba(14,17,22,.08)}
 .c6{grid-column:span 3;background:var(--bg-2);color:var(--ink);border:1px solid var(--rule)}
-.c6 h3 em{color:var(--primary)}
+.c6 h3 span{color:var(--primary)}
 .c6 .tag{background:var(--ink);color:var(--bg)}
 
 @media (max-width:900px){
   .expertise-grid{grid-template-columns:1fr}
-  .exp-card{grid-column:auto !important}
+  .exp-card{grid-column:auto !important;min-height:auto}
 }
 
+/* ============ CASE ============ */
 .case{
   background:var(--ink);
   color:var(--bg);
@@ -392,7 +433,7 @@ body::before{
   position:absolute;top:-200px;right:-200px;
   width:600px;height:600px;
   background:radial-gradient(circle, var(--primary) 0%, transparent 70%);
-  opacity:.5;
+  opacity:.4;
   pointer-events:none;
 }
 .case::after{
@@ -400,77 +441,83 @@ body::before{
   position:absolute;bottom:-200px;left:-200px;
   width:600px;height:600px;
   background:radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  opacity:.18;
+  opacity:.14;
   pointer-events:none;
 }
 .case .section-label{color:var(--accent);opacity:1}
 .case .section-label::before{background:var(--accent)}
 .case .section-title{color:var(--bg)}
-.case .section-title em{color:var(--accent)}
+.case .section-title span.accent{color:var(--accent)}
 .case-content{
   display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:60px;
+  grid-template-columns:1.3fr 1fr;
+  gap:64px;
   position:relative;z-index:2;
+  align-items:start;
 }
 .case-pillars{display:flex;flex-direction:column}
 .pillar{
   border-top:1px solid rgba(250,250,247,.14);
-  padding:26px 0;
+  padding:28px 0;
   display:grid;
-  grid-template-columns:90px 1fr;
-  gap:20px;
+  grid-template-columns:140px 1fr;
+  gap:24px;
   align-items:start;
-  transition:padding-left .35s;
 }
-.pillar:hover{padding-left:14px}
 .pillar:last-child{border-bottom:1px solid rgba(250,250,247,.14)}
 .pillar .mono{
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:11px;
-  letter-spacing:.08em;
+  font-weight:700;
+  letter-spacing:.14em;
   color:var(--accent);
-  padding-top:6px;
+  padding-top:4px;
+  text-transform:uppercase;
 }
 .pillar h4{
   font-family:var(--display);
-  font-weight:400;
-  font-size:26px;
+  font-weight:700;
+  font-size:19px;
   letter-spacing:-.01em;
-  margin-bottom:10px;
+  margin-bottom:12px;
+  line-height:1.3;
 }
 .pillar p{
+  font-family:var(--sans);
   font-size:14.5px;
-  line-height:1.6;
-  opacity:.78;
+  font-weight:400;
+  line-height:1.7;
+  opacity:.8;
 }
 .case-quote{
-  align-self:start;
-  background:linear-gradient(135deg, rgba(250,250,247,.05), rgba(250,250,247,.02));
-  border:1px solid rgba(250,250,247,.12);
-  border-radius:6px;
+  position:sticky;
+  top:100px;
+  background:linear-gradient(135deg, rgba(250,250,247,.06), rgba(250,250,247,.02));
+  border:1px solid rgba(250,250,247,.14);
+  border-radius:4px;
   padding:36px;
   backdrop-filter:blur(8px);
 }
 .case-quote .qmark{
   font-family:var(--display);
-  font-size:96px;
+  font-size:72px;
+  font-weight:700;
   line-height:.5;
   color:var(--accent);
 }
 .case-quote blockquote{
   font-family:var(--display);
-  font-style:italic;
-  font-weight:400;
-  font-size:24px;
-  line-height:1.4;
-  letter-spacing:-.005em;
-  margin-top:14px;
+  font-weight:500;
+  font-size:19px;
+  line-height:1.5;
+  letter-spacing:-.01em;
+  margin-top:18px;
 }
 .case-quote .who{
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:11px;
-  letter-spacing:.08em;
+  font-weight:600;
+  letter-spacing:.14em;
   text-transform:uppercase;
   margin-top:24px;
   color:var(--accent);
@@ -484,44 +531,51 @@ body::before{
 .kpi{
   background:rgba(250,250,247,.04);
   border:1px solid rgba(250,250,247,.1);
-  border-radius:4px;
-  padding:18px;
+  border-radius:3px;
+  padding:20px 16px;
+  text-align:center;
 }
 .kpi .k-num{
   font-family:var(--display);
-  font-size:36px;
-  font-weight:400;
+  font-size:32px;
+  font-weight:700;
   color:var(--accent);
-  letter-spacing:-.015em;
+  letter-spacing:-.025em;
   line-height:1;
 }
 .kpi .k-lbl{
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.06em;
-  margin-top:8px;
-  opacity:.65;
+  font-family:var(--sans);
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-top:10px;
+  opacity:.72;
   line-height:1.4;
 }
 @media (max-width:900px){
   .case-content{grid-template-columns:1fr;gap:40px}
+  .case-quote{position:static}
+  .pillar{grid-template-columns:1fr;gap:10px}
 }
 
+/* ============ TIMELINE ============ */
 .timeline{position:relative}
 .tl-track{
   position:relative;
   border-left:1px solid var(--rule);
-  margin-left:80px;
-  padding-left:50px;
+  margin-left:160px;
+  padding-left:48px;
 }
 .tl-item{
   position:relative;
-  padding:24px 0 44px;
+  padding:16px 0 48px;
 }
+.tl-item:last-child{padding-bottom:0}
 .tl-item::before{
   content:"";
   position:absolute;
-  left:-58px;top:32px;
+  left:-56px;top:24px;
   width:11px;height:11px;border-radius:50%;
   background:var(--bg);
   border:2px solid var(--primary);
@@ -533,74 +587,83 @@ body::before{
 .tl-item:nth-child(5)::before{border-color:var(--ink)}
 .tl-date{
   position:absolute;
-  left:-180px;top:24px;
-  font-family:var(--mono);
+  left:-220px;top:18px;
+  font-family:var(--sans);
   font-size:11px;
-  letter-spacing:.06em;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
   color:var(--muted);
-  width:110px;text-align:right;
+  width:150px;text-align:right;
 }
 .tl-role{
   font-family:var(--display);
-  font-weight:400;
-  font-size:30px;
+  font-weight:700;
+  font-size:22px;
   letter-spacing:-.015em;
+  line-height:1.25;
+  color:var(--ink);
 }
-.tl-role em{
-  font-style:italic;
+.tl-role span{
+  font-weight:500;
   color:var(--primary);
 }
-.tl-item:nth-child(2) .tl-role em{color:var(--accent-2)}
-.tl-item:nth-child(3) .tl-role em{color:var(--slate)}
-.tl-item:nth-child(4) .tl-role em{color:var(--burgundy)}
-.tl-item:nth-child(5) .tl-role em{color:var(--ink)}
+.tl-item:nth-child(2) .tl-role span{color:var(--accent-2)}
+.tl-item:nth-child(3) .tl-role span{color:var(--slate)}
+.tl-item:nth-child(4) .tl-role span{color:var(--burgundy)}
+.tl-item:nth-child(5) .tl-role span{color:var(--ink)}
 .tl-company{
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:.04em;
+  font-family:var(--sans);
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.03em;
   margin-top:8px;
   color:var(--muted);
 }
 .tl-desc{
-  font-size:15px;
-  line-height:1.65;
-  margin-top:14px;
+  font-family:var(--sans);
+  font-size:14.5px;
+  font-weight:400;
+  line-height:1.7;
+  margin-top:16px;
   max-width:680px;
   color:var(--ink-2);
 }
 .tl-tags{
-  display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;
 }
 .tl-tags span{
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.04em;
+  font-family:var(--sans);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
   background:var(--bg-2);
-  padding:5px 10px;
-  border-radius:2px;
+  padding:6px 10px;
+  border-radius:3px;
   border:1px solid var(--rule);
   color:var(--ink-2);
 }
 @media (max-width:900px){
-  .tl-track{margin-left:24px;padding-left:30px}
+  .tl-track{margin-left:0;padding-left:32px}
   .tl-date{
     position:static;width:auto;text-align:left;
-    margin-bottom:6px;
+    margin-bottom:8px;
   }
-  .tl-item::before{left:-35px}
+  .tl-item::before{left:-38px;top:4px}
 }
 
+/* ============ TOOLKIT ============ */
 .toolkit{background:var(--bg-2)}
 .tool-cloud{
-  display:flex;flex-wrap:wrap;gap:9px;
-  max-width:1000px;
+  display:flex;flex-wrap:wrap;gap:10px;
 }
 .chip{
-  font-family:var(--mono);
+  font-family:var(--sans);
   font-size:13px;
-  font-weight:400;
-  padding:10px 16px;
-  border-radius:2px;
+  font-weight:500;
+  padding:11px 18px;
+  border-radius:3px;
   background:var(--bg);
   border:1px solid var(--rule);
   color:var(--ink-2);
@@ -619,10 +682,11 @@ body::before{
 .chip.slate{background:var(--slate);color:var(--bg);border-color:var(--slate)}
 .chip.slate:hover{background:var(--ink)}
 
+/* ============ CONTACT ============ */
 .contact{
   background:var(--ink);
   color:var(--bg);
-  padding:130px 40px;
+  padding:120px var(--pad-x);
   text-align:center;
   position:relative;
   overflow:hidden;
@@ -631,48 +695,47 @@ body::before{
   content:"";
   position:absolute;inset:0;
   background:
-    radial-gradient(circle at 30% 50%, rgba(15,61,62,.32), transparent 55%),
-    radial-gradient(circle at 70% 50%, rgba(200,169,113,.16), transparent 55%);
+    radial-gradient(circle at 30% 50%, rgba(15,61,62,.3), transparent 55%),
+    radial-gradient(circle at 70% 50%, rgba(200,169,113,.14), transparent 55%);
 }
-.contact-content{position:relative;z-index:2;max-width:1100px;margin:0 auto}
+.contact-content{position:relative;z-index:2;max-width:960px;margin:0 auto}
 .contact h2{
   font-family:var(--display);
-  font-weight:400;
-  font-size:clamp(52px,8.5vw,148px);
-  line-height:.98;
-  letter-spacing:-.02em;
+  font-weight:700;
+  font-size:clamp(40px,5.5vw,80px);
+  line-height:1.08;
+  letter-spacing:-.035em;
   color:var(--bg);
 }
-.contact h2 em{
-  font-style:italic;
+.contact h2 span{
   color:var(--accent);
+  font-weight:600;
 }
 .contact p{
-  font-family:var(--display);
-  font-style:italic;
+  font-family:var(--sans);
   font-weight:400;
-  font-size:24px;
-  margin-top:24px;
-  opacity:.78;
-  max-width:640px;
+  font-size:17px;
+  margin-top:28px;
+  opacity:.82;
+  max-width:620px;
   margin-left:auto;
   margin-right:auto;
-  line-height:1.4;
+  line-height:1.65;
 }
 .contact-links{
   display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
-  margin-top:54px;
+  margin-top:48px;
 }
 .contact-link{
   font-family:var(--sans);
   font-size:13px;
-  font-weight:500;
-  letter-spacing:.02em;
+  font-weight:600;
+  letter-spacing:.03em;
   color:var(--bg);
   text-decoration:none;
-  padding:14px 26px;
-  border:1px solid rgba(250,250,247,.22);
-  border-radius:2px;
+  padding:15px 28px;
+  border:1px solid rgba(250,250,247,.24);
+  border-radius:3px;
   transition:all .25s;
 }
 .contact-link:hover{
@@ -685,29 +748,36 @@ body::before{
   background:var(--accent);
   color:var(--ink);
   border-color:var(--accent);
-  font-weight:600;
+  font-weight:700;
 }
 .contact-link.primary:hover{
   background:var(--bg);border-color:var(--bg);
 }
 
+/* ============ FOOTER ============ */
 .footer{
   background:var(--ink);
   color:var(--bg);
-  padding:32px 40px;
+  padding:28px var(--pad-x);
   border-top:1px solid rgba(250,250,247,.1);
+}
+.footer-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:.05em;
-  opacity:.6;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:.04em;
+  opacity:.65;
 }
 @media (max-width:780px){
-  .footer{flex-direction:column;gap:8px;text-align:center}
+  .footer-inner{flex-direction:column;gap:8px;text-align:center}
 }
 
+/* ============ ANIMATION ============ */
 .reveal{
   opacity:0;transform:translateY(24px);
   transition:opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1);
@@ -732,44 +802,49 @@ body::before{
 <body>
 
 <nav class="nav">
-  <div class="mark">Diwas <span>Tripathi</span></div>
-  <ul>
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#branch">Branch</a></li>
-    <li><a href="#journey">Journey</a></li>
-    <li><a href="#toolkit">Toolkit</a></li>
-  </ul>
-  <a href="#contact" class="cta">Get in touch →</a>
+  <div class="nav-inner">
+    <div class="mark">Diwas <span>Tripathi</span></div>
+    <ul>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#branch">Branch</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+    </ul>
+    <a href="#contact" class="cta">Get in touch →</a>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-bg"></div>
 
-  <div class="hero-meta">
-    <span><span class="blinker"></span>Available · Bangalore, IN</span>
-    <span>Marketing Manager · Branch International</span>
-    <span>Portfolio · 2026</span>
-  </div>
-
-  <h1>
-    <span class="a">Growth that</span>
-    <span class="b">compounds <span class="amp">&amp;</span> endures.</span>
-  </h1>
-
-  <div class="hero-sub">
-    <div class="hero-tag">
-      <span class="row">— Diwas Tripathi</span>
-      <span class="row">Marketing Manager · ASO · SEO · AEO/GEO</span>
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span><span class="blinker"></span>Available · Bangalore, IN</span>
+      <span>Marketing Manager · Branch International</span>
+      <span>Portfolio · 2026</span>
     </div>
-    <p class="hero-bio">
-      I build organic engines for fintech and SaaS — from <em>App Store Optimisation</em> and <em>Technical SEO</em> to <em>AEO/GEO</em> for the AI-search era. <em>Ten years</em> turning search intent into installs, leads, and pipeline.
-    </p>
-  </div>
 
-  <div class="marquee">
-    <div class="marquee-track">
-      <span>ASO Strategy <span class="dot"></span> SEO from Scratch <span class="dot"></span> AEO &amp; GEO <span class="dot"></span> Retargeting <span class="dot"></span> Demand Generation <span class="dot"></span> CRO <span class="dot"></span> Content Strategy <span class="dot"></span></span>
-      <span>ASO Strategy <span class="dot"></span> SEO from Scratch <span class="dot"></span> AEO &amp; GEO <span class="dot"></span> Retargeting <span class="dot"></span> Demand Generation <span class="dot"></span> CRO <span class="dot"></span> Content Strategy <span class="dot"></span></span>
+    <h1>
+      <span class="a">Growth that</span>
+      <span class="b">compounds <span class="amp">&amp;</span> endures.</span>
+    </h1>
+
+    <div class="hero-sub">
+      <div class="hero-tag">
+        <span class="row name">Diwas Tripathi</span>
+        <span class="row">Marketing Manager</span>
+        <span class="row">ASO · SEO · AEO/GEO</span>
+      </div>
+      <p class="hero-bio">
+        I build organic engines for fintech and SaaS — from <strong>App Store Optimisation</strong> and <strong>Technical SEO</strong> to <strong>AEO/GEO</strong> for the AI-search era. <strong>Ten years</strong> turning search intent into installs, leads, and pipeline.
+      </p>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>ASO Strategy <span class="dot"></span> SEO from Scratch <span class="dot"></span> AEO &amp; GEO <span class="dot"></span> Retargeting <span class="dot"></span> Demand Generation <span class="dot"></span> CRO <span class="dot"></span> Content Strategy <span class="dot"></span></span>
+        <span>ASO Strategy <span class="dot"></span> SEO from Scratch <span class="dot"></span> AEO &amp; GEO <span class="dot"></span> Retargeting <span class="dot"></span> Demand Generation <span class="dot"></span> CRO <span class="dot"></span> Content Strategy <span class="dot"></span></span>
+      </div>
     </div>
   </div>
 </section>
@@ -796,140 +871,144 @@ body::before{
 </section>
 
 <section class="section" id="expertise">
-  <div class="section-label reveal">01 — What I do</div>
-  <h2 class="section-title reveal d1">Discoverability, end-to-end<br><em>across humans &amp; machines.</em></h2>
+  <div class="section-inner">
+    <div class="section-label reveal">01 — What I do</div>
+    <h2 class="section-title reveal d1">Discoverability, end-to-end<br><span class="accent">across humans &amp; machines.</span></h2>
 
-  <div class="expertise-grid">
-    <div class="exp-card c1 reveal">
-      <div>
-        <div class="num">/ 01</div>
-        <h3>App Store <em>Optimisation</em></h3>
+    <div class="expertise-grid">
+      <div class="exp-card c1 reveal">
+        <div>
+          <div class="num">/ 01</div>
+          <h3>App Store <span>Optimisation</span></h3>
+        </div>
+        <div>
+          <p>Metadata, keywords, creatives, store listing experiments, custom store listings, and localisation across India, Kenya, Nigeria &amp; Tanzania.</p>
+          <span class="tag">Play Store · App Store · AppTweak</span>
+        </div>
       </div>
-      <div>
-        <p>Metadata, keywords, creatives, store listing experiments, custom store listings, and localisation across India, Kenya, Nigeria &amp; Tanzania.</p>
-        <span class="tag">Play Store · App Store · AppTweak</span>
-      </div>
-    </div>
 
-    <div class="exp-card c2 reveal d1">
-      <div>
-        <div class="num">/ 02</div>
-        <h3>SEO from <em>scratch</em></h3>
+      <div class="exp-card c2 reveal d1">
+        <div>
+          <div class="num">/ 02</div>
+          <h3>SEO from <span>Scratch</span></h3>
+        </div>
+        <div>
+          <p>Technical foundations, IA, on-page frameworks, internal linking, schema, hreflang, content templates &amp; topical clusters.</p>
+          <span class="tag">Technical · On-Page · Content</span>
+        </div>
       </div>
-      <div>
-        <p>Technical foundations, IA, on-page frameworks, internal linking, schema, hreflang, content templates &amp; topical clusters.</p>
-        <span class="tag">Technical · On-Page · Content</span>
-      </div>
-    </div>
 
-    <div class="exp-card c3 reveal d2">
-      <div>
-        <div class="num">/ 03</div>
-        <h3>AEO + <em>GEO</em></h3>
+      <div class="exp-card c3 reveal d2">
+        <div>
+          <div class="num">/ 03</div>
+          <h3>AEO + <span>GEO</span></h3>
+        </div>
+        <div>
+          <p>Visibility inside AI Overviews, ChatGPT, Perplexity &amp; Gemini.</p>
+          <span class="tag">LLM · Entity · Citation</span>
+        </div>
       </div>
-      <div>
-        <p>Visibility inside AI Overviews, ChatGPT, Perplexity &amp; Gemini.</p>
-        <span class="tag">LLM · Entity · Citation</span>
-      </div>
-    </div>
 
-    <div class="exp-card c4 reveal">
-      <div>
-        <div class="num">/ 04</div>
-        <h3>Retargeting &amp; <em>Performance</em></h3>
+      <div class="exp-card c4 reveal">
+        <div>
+          <div class="num">/ 04</div>
+          <h3>Retargeting &amp; <span>Performance</span></h3>
+        </div>
+        <div>
+          <p>Funnel re-engagement across paid social, display &amp; Google Ads. MMP, pixels, audiences, creative testing.</p>
+          <span class="tag">Adjust · AppsFlyer · Meta · Google</span>
+        </div>
       </div>
-      <div>
-        <p>Funnel re-engagement across paid social, display &amp; Google Ads. MMP, pixels, audiences, creative testing.</p>
-        <span class="tag">Adjust · AppsFlyer · Meta · Google</span>
-      </div>
-    </div>
 
-    <div class="exp-card c5 reveal d1">
-      <div>
-        <div class="num">/ 05</div>
-        <h3>Reporting &amp; <em>Analytics</em></h3>
+      <div class="exp-card c5 reveal d1">
+        <div>
+          <div class="num">/ 05</div>
+          <h3>Reporting &amp; <span>Analytics</span></h3>
+        </div>
+        <div>
+          <p>One source of truth for leadership: GA4, Search Console, Play Console, App Store Connect &amp; MMP — unified in Looker Studio.</p>
+          <span class="tag">GA4 · Looker · Cohorts · Funnels</span>
+        </div>
       </div>
-      <div>
-        <p>One source of truth for leadership: GA4, Search Console, Play Console, App Store Connect &amp; MMP — unified in Looker Studio.</p>
-        <span class="tag">GA4 · Looker · Cohorts · Funnels</span>
-      </div>
-    </div>
 
-    <div class="exp-card c6 reveal d2">
-      <div>
-        <div class="num">/ 06</div>
-        <h3>Content + <em>Brand</em></h3>
-      </div>
-      <div>
-        <p>Editorial direction, brand storytelling &amp; team leadership.</p>
-        <span class="tag">Strategy · Voice · Team</span>
+      <div class="exp-card c6 reveal d2">
+        <div>
+          <div class="num">/ 06</div>
+          <h3>Content + <span>Brand</span></h3>
+        </div>
+        <div>
+          <p>Editorial direction, brand storytelling &amp; team leadership.</p>
+          <span class="tag">Strategy · Voice · Team</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="case section" id="branch">
-  <div class="section-label reveal">02 — Currently shipping</div>
-  <h2 class="section-title reveal d1">Branch <em>International</em><br>Organic engine, rebuilt.</h2>
+  <div class="section-inner">
+    <div class="section-label reveal">02 — Currently shipping</div>
+    <h2 class="section-title reveal d1">Branch International<br><span class="accent">Organic engine, rebuilt.</span></h2>
 
-  <div class="case-content">
-    <div class="case-pillars">
-      <div class="pillar reveal">
-        <div class="mono">/ ASO</div>
-        <div>
-          <h4>Store rankings &amp; install conversion</h4>
-          <p>Owning end-to-end ASO across Google Play and the App Store — metadata, keyword portfolios, creatives, and store listing experiments tuned for emerging-market geographies. Continuous A/B tests on icons, screenshots and descriptions to lift store-visit-to-install conversion.</p>
+    <div class="case-content">
+      <div class="case-pillars">
+        <div class="pillar reveal">
+          <div class="mono">ASO</div>
+          <div>
+            <h4>Store rankings &amp; install conversion</h4>
+            <p>Owning end-to-end ASO across Google Play and the App Store — metadata, keyword portfolios, creatives, and store listing experiments tuned for emerging-market geographies. Continuous A/B tests on icons, screenshots and descriptions to lift store-visit-to-install conversion.</p>
+          </div>
+        </div>
+        <div class="pillar reveal d1">
+          <div class="mono">SEO</div>
+          <div>
+            <h4>Built from zero</h4>
+            <p>Defined the technical foundations, information architecture, schema, internal linking and topical clusters around lending, personal finance &amp; credit. Shipped a topical content roadmap targeting high-intent loan and product-education queries.</p>
+          </div>
+        </div>
+        <div class="pillar reveal d2">
+          <div class="mono">AEO + GEO</div>
+          <div>
+            <h4>Optimising for AI search</h4>
+            <p>Structuring content for inclusion in Google AI Overviews, ChatGPT, Perplexity and Gemini answers. Question-led headings, FAQ schema, entity-rich glossaries, and a topical-authority map make Branch the cited authority for credit and KYC questions.</p>
+          </div>
+        </div>
+        <div class="pillar reveal d3">
+          <div class="mono">Retargeting</div>
+          <div>
+            <h4>Closed-loop funnel</h4>
+            <p>Audience segments, creative variants and bidding logic across paid social, display and Google Ads to re-engage drop-offs. MMP events, pixels and audience syncs power closed-loop measurement against installs, KYC and first-loan KPIs.</p>
+          </div>
+        </div>
+        <div class="pillar reveal d4">
+          <div class="mono">Reporting</div>
+          <div>
+            <h4>One view of truth</h4>
+            <p>Consolidated Looker Studio dashboards pulling GA4, Search Console, Play Console, App Store Connect &amp; MMP. Weekly, monthly &amp; quarterly cadence covering installs, rankings, ASO conversion, organic sessions, AEO citations, retargeting ROAS &amp; CAC.</p>
+          </div>
         </div>
       </div>
-      <div class="pillar reveal d1">
-        <div class="mono">/ SEO</div>
-        <div>
-          <h4>Built from zero</h4>
-          <p>Defined the technical foundations, information architecture, schema, internal linking and topical clusters around lending, personal finance &amp; credit. Shipped a topical content roadmap targeting high-intent loan and product-education queries.</p>
-        </div>
-      </div>
-      <div class="pillar reveal d2">
-        <div class="mono">/ AEO + GEO</div>
-        <div>
-          <h4>Optimising for AI search</h4>
-          <p>Structuring content for inclusion in Google AI Overviews, ChatGPT, Perplexity and Gemini answers. Question-led headings, FAQ schema, entity-rich glossaries, and a topical-authority map make Branch the cited authority for credit and KYC questions.</p>
-        </div>
-      </div>
-      <div class="pillar reveal d3">
-        <div class="mono">/ RETARGETING</div>
-        <div>
-          <h4>Closed-loop funnel</h4>
-          <p>Audience segments, creative variants and bidding logic across paid social, display and Google Ads to re-engage drop-offs. MMP events, pixels and audience syncs power closed-loop measurement against installs, KYC and first-loan KPIs.</p>
-        </div>
-      </div>
-      <div class="pillar reveal d4">
-        <div class="mono">/ REPORTING</div>
-        <div>
-          <h4>One view of truth</h4>
-          <p>Consolidated Looker Studio dashboards pulling GA4, Search Console, Play Console, App Store Connect &amp; MMP. Weekly, monthly &amp; quarterly cadence covering installs, rankings, ASO conversion, organic sessions, AEO citations, retargeting ROAS &amp; CAC.</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="case-quote reveal d1">
-      <div class="qmark">"</div>
-      <blockquote>
-        Search isn't one channel anymore. It's stores, classical web, and AI answers — all racing for the same intent. The job is to win across all three.
-      </blockquote>
-      <div class="who">— Operating principle</div>
+      <div class="case-quote reveal d1">
+        <div class="qmark">"</div>
+        <blockquote>
+          Search isn't one channel anymore. It's stores, classical web, and AI answers — all racing for the same intent. The job is to win across all three.
+        </blockquote>
+        <div class="who">Operating principle</div>
 
-      <div class="kpi-row">
-        <div class="kpi">
-          <div class="k-num">3</div>
-          <div class="k-lbl">Surfaces optimised</div>
-        </div>
-        <div class="kpi">
-          <div class="k-num">4+</div>
-          <div class="k-lbl">Geos localised</div>
-        </div>
-        <div class="kpi">
-          <div class="k-num">1</div>
-          <div class="k-lbl">Unified dashboard</div>
+        <div class="kpi-row">
+          <div class="kpi">
+            <div class="k-num">3</div>
+            <div class="k-lbl">Surfaces</div>
+          </div>
+          <div class="kpi">
+            <div class="k-num">4+</div>
+            <div class="k-lbl">Geos</div>
+          </div>
+          <div class="kpi">
+            <div class="k-num">1</div>
+            <div class="k-lbl">Dashboard</div>
+          </div>
         </div>
       </div>
     </div>
@@ -937,91 +1016,95 @@ body::before{
 </section>
 
 <section class="section" id="journey">
-  <div class="section-label reveal">03 — The journey</div>
-  <h2 class="section-title reveal d1">Ten years, <em>one through-line.</em></h2>
+  <div class="section-inner">
+    <div class="section-label reveal">03 — The journey</div>
+    <h2 class="section-title reveal d1">Ten years, <span class="accent">one through-line.</span></h2>
 
-  <div class="timeline">
-    <div class="tl-track">
-      <div class="tl-item reveal">
-        <div class="tl-date">Sep 2025 — Now</div>
-        <div class="tl-role">Marketing <em>Manager</em></div>
-        <div class="tl-company">Branch International · Bengaluru</div>
-        <p class="tl-desc">Leading ASO, SEO, AEO/GEO, retargeting and reporting for a global fintech serving emerging markets. Building the organic and AI-search engine from the ground up.</p>
-        <div class="tl-tags"><span>ASO</span><span>SEO</span><span>AEO/GEO</span><span>Retargeting</span><span>GA4</span><span>Looker</span></div>
-      </div>
+    <div class="timeline">
+      <div class="tl-track">
+        <div class="tl-item reveal">
+          <div class="tl-date">Sep 2025 — Now</div>
+          <div class="tl-role">Marketing <span>Manager</span></div>
+          <div class="tl-company">Branch International · Bengaluru</div>
+          <p class="tl-desc">Leading ASO, SEO, AEO/GEO, retargeting and reporting for a global fintech serving emerging markets. Building the organic and AI-search engine from the ground up.</p>
+          <div class="tl-tags"><span>ASO</span><span>SEO</span><span>AEO/GEO</span><span>Retargeting</span><span>GA4</span><span>Looker</span></div>
+        </div>
 
-      <div class="tl-item reveal">
-        <div class="tl-date">Nov 2024 — Jul 2025</div>
-        <div class="tl-role">Manager — <em>Content &amp; Comms</em></div>
-        <div class="tl-company">upGrad KnowledgeHut · Bengaluru</div>
-        <p class="tl-desc">Owned content and communications strategy for the professional learning portfolio. Led the team across blogs, course pages and email campaigns; partnered with SEO and performance teams to lift discovery.</p>
-        <div class="tl-tags"><span>Content Strategy</span><span>SEO</span><span>Editorial</span></div>
-      </div>
+        <div class="tl-item reveal">
+          <div class="tl-date">Nov 2024 — Jul 2025</div>
+          <div class="tl-role">Manager — <span>Content &amp; Comms</span></div>
+          <div class="tl-company">upGrad KnowledgeHut · Bengaluru</div>
+          <p class="tl-desc">Owned content and communications strategy for the professional learning portfolio. Led the team across blogs, course pages and email campaigns; partnered with SEO and performance teams to lift discovery.</p>
+          <div class="tl-tags"><span>Content Strategy</span><span>SEO</span><span>Editorial</span></div>
+        </div>
 
-      <div class="tl-item reveal">
-        <div class="tl-date">Nov 2022 — Jul 2024</div>
-        <div class="tl-role">Asst. Manager — <em>Online Marketing</em></div>
-        <div class="tl-company">Flatworld Solutions · Bangalore</div>
-        <p class="tl-desc">Led the SEO team, ran technical audits, and grew satellite-site portfolios that drove SQL pipeline. Deployed ABM with Clearbit, Drift &amp; LinkedIn Sales Navigator.</p>
-        <div class="tl-tags"><span>Technical SEO</span><span>ABM</span><span>SQL Pipeline</span><span>CRO</span></div>
-      </div>
+        <div class="tl-item reveal">
+          <div class="tl-date">Nov 2022 — Jul 2024</div>
+          <div class="tl-role">Asst. Manager — <span>Online Marketing</span></div>
+          <div class="tl-company">Flatworld Solutions · Bangalore</div>
+          <p class="tl-desc">Led the SEO team, ran technical audits, and grew satellite-site portfolios that drove SQL pipeline. Deployed ABM with Clearbit, Drift &amp; LinkedIn Sales Navigator.</p>
+          <div class="tl-tags"><span>Technical SEO</span><span>ABM</span><span>SQL Pipeline</span><span>CRO</span></div>
+        </div>
 
-      <div class="tl-item reveal">
-        <div class="tl-date">2018 — 2022</div>
-        <div class="tl-role">Content Lead → <em>Asst. Manager</em></div>
-        <div class="tl-company">Seasia Infotech · Mohali / Chandigarh</div>
-        <p class="tl-desc">Built and led the content function across web, blog and campaigns. Defined editorial standards, partnered with SEO and design, and ran multi-channel client-acquisition campaigns.</p>
-        <div class="tl-tags"><span>Content</span><span>Brand</span><span>Team Lead</span></div>
-      </div>
+        <div class="tl-item reveal">
+          <div class="tl-date">2018 — 2022</div>
+          <div class="tl-role">Content Lead → <span>Asst. Manager</span></div>
+          <div class="tl-company">Seasia Infotech · Mohali / Chandigarh</div>
+          <p class="tl-desc">Built and led the content function across web, blog and campaigns. Defined editorial standards, partnered with SEO and design, and ran multi-channel client-acquisition campaigns.</p>
+          <div class="tl-tags"><span>Content</span><span>Brand</span><span>Team Lead</span></div>
+        </div>
 
-      <div class="tl-item reveal">
-        <div class="tl-date">2015 — 2018</div>
-        <div class="tl-role">Earlier <em>chapters</em></div>
-        <div class="tl-company">Asclique · CareerGuide · Cric Spider · Blinkit</div>
-        <p class="tl-desc">Authored 290+ technical articles reaching 8M+ readers, mentored writer teams, edited live-broadcast content, and ran CRM and logistics ops at Blinkit (then Grofers). The fundamentals years.</p>
-        <div class="tl-tags"><span>Tech Writing</span><span>Editorial</span><span>CRM</span></div>
+        <div class="tl-item reveal">
+          <div class="tl-date">2015 — 2018</div>
+          <div class="tl-role">Earlier <span>Chapters</span></div>
+          <div class="tl-company">Asclique · CareerGuide · Cric Spider · Blinkit</div>
+          <p class="tl-desc">Authored 290+ technical articles reaching 8M+ readers, mentored writer teams, edited live-broadcast content, and ran CRM and logistics ops at Blinkit (then Grofers). The fundamentals years.</p>
+          <div class="tl-tags"><span>Tech Writing</span><span>Editorial</span><span>CRM</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section toolkit" id="toolkit">
-  <div class="section-label reveal">04 — The toolkit</div>
-  <h2 class="section-title reveal d1">Stack &amp; <em>signals.</em></h2>
+  <div class="section-inner">
+    <div class="section-label reveal">04 — The toolkit</div>
+    <h2 class="section-title reveal d1">Stack &amp; <span class="accent">signals.</span></h2>
 
-  <div class="tool-cloud">
-    <div class="chip primary reveal">Google Analytics 4</div>
-    <div class="chip reveal">Search Console</div>
-    <div class="chip reveal">Play Console</div>
-    <div class="chip reveal">App Store Connect</div>
-    <div class="chip accent reveal">AppTweak</div>
-    <div class="chip reveal">Sensor Tower</div>
-    <div class="chip slate reveal">Ahrefs</div>
-    <div class="chip reveal">SEMrush</div>
-    <div class="chip reveal">Screaming Frog</div>
-    <div class="chip primary reveal">Looker Studio</div>
-    <div class="chip reveal">Adjust</div>
-    <div class="chip reveal">AppsFlyer</div>
-    <div class="chip slate reveal">Google Ads</div>
-    <div class="chip reveal">Meta Ads</div>
-    <div class="chip reveal">HubSpot</div>
-    <div class="chip reveal">Clearbit</div>
-    <div class="chip reveal">Drift</div>
-    <div class="chip reveal">LinkedIn Sales Nav</div>
-    <div class="chip reveal">ZoomInfo</div>
-    <div class="chip accent reveal">ChatGPT</div>
-    <div class="chip reveal">Perplexity</div>
-    <div class="chip reveal">Gemini</div>
-    <div class="chip reveal">Schema.org</div>
-    <div class="chip reveal">FAQPage</div>
-    <div class="chip reveal">Notion</div>
-    <div class="chip reveal">Figma</div>
+    <div class="tool-cloud">
+      <div class="chip primary reveal">Google Analytics 4</div>
+      <div class="chip reveal">Search Console</div>
+      <div class="chip reveal">Play Console</div>
+      <div class="chip reveal">App Store Connect</div>
+      <div class="chip accent reveal">AppTweak</div>
+      <div class="chip reveal">Sensor Tower</div>
+      <div class="chip slate reveal">Ahrefs</div>
+      <div class="chip reveal">SEMrush</div>
+      <div class="chip reveal">Screaming Frog</div>
+      <div class="chip primary reveal">Looker Studio</div>
+      <div class="chip reveal">Adjust</div>
+      <div class="chip reveal">AppsFlyer</div>
+      <div class="chip slate reveal">Google Ads</div>
+      <div class="chip reveal">Meta Ads</div>
+      <div class="chip reveal">HubSpot</div>
+      <div class="chip reveal">Clearbit</div>
+      <div class="chip reveal">Drift</div>
+      <div class="chip reveal">LinkedIn Sales Nav</div>
+      <div class="chip reveal">ZoomInfo</div>
+      <div class="chip accent reveal">ChatGPT</div>
+      <div class="chip reveal">Perplexity</div>
+      <div class="chip reveal">Gemini</div>
+      <div class="chip reveal">Schema.org</div>
+      <div class="chip reveal">FAQPage</div>
+      <div class="chip reveal">Notion</div>
+      <div class="chip reveal">Figma</div>
+    </div>
   </div>
 </section>
 
 <section class="contact" id="contact">
   <div class="contact-content">
-    <h2>Let's build the <em>next compounding</em> growth engine.</h2>
+    <h2>Let's build the <span>next compounding</span> growth engine.</h2>
     <p>Open to senior marketing roles at fintech, SaaS and consumer-tech companies hungry for organic, AI-search-ready, full-funnel growth.</p>
     <div class="contact-links">
       <a href="mailto:diwastripathi@gmail.com" class="contact-link primary">diwastripathi@gmail.com</a>
@@ -1032,8 +1115,10 @@ body::before{
 </section>
 
 <footer class="footer">
-  <div>© 2026 Diwas Tripathi · Crafted with intention</div>
-  <div>Bangalore, India</div>
+  <div class="footer-inner">
+    <div>© 2026 Diwas Tripathi · Crafted with intention</div>
+    <div>Bangalore, India</div>
+  </div>
 </footer>
 
 <script>
